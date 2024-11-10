@@ -42,7 +42,7 @@ def build_expression(number1, number2, operator):
     if operator == '+': 
         result = number1 + number2
     elif operator == '-':
-        result = number1 + number2
+        result = number1 - number2
     else: 
         result = number1 * number2
     return expression, result
