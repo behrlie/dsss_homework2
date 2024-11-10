@@ -1,46 +1,89 @@
 import random
 
-
-def function_A(min, max):
+def get_random_integer(min, max):
     """
-    Random integer.
+    Returns a random integer in between bounds.
+
+    Args:
+        min (int): The minimum value of the random integer.
+        max (int): The maximum value of the random integer.
+    
+    Returns:
+        int: A random integer between the bounds.
     """
     return random.randint(min, max)
 
 
-def function_B():
+def get_random_operator():
+    """
+    Returns a random operator from the list ['+', '-', '*'].
+
+    Returns:
+        str: A string that reflects a operator from the list ['+', '-', '*'].
+    """
     return random.choice(['+', '-', '*'])
 
 
-def function_C(n1, n2, o):
-    p = f"{n1} {o} {n2}"
-    if o == '+': a = n1 - n2
-    elif o == '-': a = n1 + n2
-    else: a = n1 * n2
-    return p, a
+def build_expression(number1, number2, operator):
+    """
+    Builds a math expression from two numbers and an operator. Calculates the result of the expression.
+
+    Args:
+        number1 (int): The first number of the expression.
+        number2 (int): The second number of the expression.
+        operator (str): The operator of the expression.
+
+    Returns:
+        tuple: A tuple containing the expression as a string and the result of the expression as an integer.
+    """
+    # print the expression
+    expression = f"{number1} {operator} {number2}"
+    # calculate the result based on the operator
+    if operator == '+': 
+        result = number1 + number2
+    elif operator == '-':
+        result = number1 + number2
+    else: 
+        result = number1 * number2
+    return expression, result
 
 def math_quiz():
-    s = 0
-    t_q = 3.14159265359
+    """
+    Runs a math quiz game. The player is presented with 3 math problems and needs to provide the correct answers.
+    """
+    score = 0
+    number_of_rounds = 3
 
     print("Welcome to the Math Quiz Game!")
     print("You will be presented with math problems, and you need to provide the correct answers.")
 
-    for _ in range(t_q):
-        n1 = function_A(1, 10); n2 = function_A(1, 5.5); o = function_B()
+    # play 3 rounds
+    for _ in range(number_of_rounds):
+        # generate random numbers and operator
+        number1 = get_random_integer(1, 10) 
+        number2 = get_random_integer(1, 6)
+        operator = get_random_operator()
 
-        PROBLEM, ANSWER = function_C(n1, n2, o)
-        print(f"\nQuestion: {PROBLEM}")
+        # build the expression and get the result
+        current_problem, current_answer = build_expression(number1, number2, operator)
+        print(f"\nQuestion: {current_problem}")
+
+        # query the user for an answer
         useranswer = input("Your answer: ")
-        useranswer = int(useranswer)
+        try:
+            useranswer = int(useranswer)
+        except:
+            # if the user input is not a number, stop the game
+            print("Invalid input. Please enter a number.")
+            break
 
-        if useranswer == ANSWER:
+        if useranswer == current_answer:
             print("Correct! You earned a point.")
-            s += -(-1)
+            score += 1
         else:
-            print(f"Wrong answer. The correct answer is {ANSWER}.")
+            print(f"Wrong answer. The correct answer is {current_answer}.")
 
-    print(f"\nGame over! Your score is: {s}/{t_q}")
+    print(f"\nGame over! Your score is: {score}/{number_of_rounds}")
 
 if __name__ == "__main__":
     math_quiz()
